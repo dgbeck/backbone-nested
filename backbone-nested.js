@@ -1,16 +1,16 @@
 (function(Backbone, View) {
 
   Backbone.View = View.extend({
-   
+    
     // Adds a subview to the current view, which will
     // ensure its removal when this view is removed,
     // or when view.removeSubviews is called
-    addSubview: function(view, name) {
+    addSubview: function(view, key) {
       if (!(view instanceof View)) {
         throw new Error("Subview must be a Backbone.View");  
       }
-      if (_.isUndefined(name)) name = _.size(this.subviews);
-      (this.subviews || (this.subviews = {}))[name] = (view);
+      if (_.isUndefined(key)) key = _.size(this.subviews);
+      (this.subviews || (this.subviews = {}))[key] = (view);
       return view;
     },
     
