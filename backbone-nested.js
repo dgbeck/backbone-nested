@@ -5,11 +5,12 @@
     // Adds a subview to the current view, which will
     // ensure its removal when this view is removed,
     // or when view.removeSubviews is called
-    addSubview: function(view) {
+    addSubview: function(view, name) {
       if (!(view instanceof View)) {
         throw new Error("Subview must be a Backbone.View");  
       }
-      (this.subviews || (this.subviews = [])).push(view);
+      if (_.isUndefined(name)) name = _.size(this.subviews);
+      (this.subviews || (this.subviews = {}))[name] = (view);
       return view;
     },
     
@@ -19,10 +20,10 @@
     removeSubviews: function() {
       var children = this.subviews;
       if (!children) return this;
-      for (var i = 0, l = children.length; i<l; i++) {
-        children[i].remove();
-      }
-      this.subviews = [];
+      _.each(children, function(child) {
+        child.remove();
+      });
+      delete this.subviews;
       return this;
     },
 
