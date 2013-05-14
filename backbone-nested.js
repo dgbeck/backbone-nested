@@ -9,7 +9,7 @@
       if (!(view instanceof View)) {
         throw new Error("Subview must be a Backbone.View");  
       }
-      if (_.isUndefined(key)) key = _.uniqueId('subview');
+      if (_.isUndefined(key)) key = view.cid;
       (this.subviews || (this.subviews = {}))[key] = (view);
       return view;
     },
